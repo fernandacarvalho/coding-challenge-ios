@@ -1,0 +1,32 @@
+import SwiftUI
+
+struct ContinentFilterView: View {
+    let continent: Continent
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        VStack(spacing: 6) {
+            Button(action: onTap) {
+                ZStack {
+                    Circle()
+                        .fill(isSelected ? Color.tangerineDream : .white)
+                        .frame(width: 56, height: 56)
+                        .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+
+                    Image(systemName: continent.systemImage)
+                        .font(.system(size: 22))
+                        .foregroundColor(isSelected ? .white : .blueGrey)
+                }
+            }
+            .buttonStyle(.plain)
+
+            Text(continent.label)
+                .font(.system(size: 11, weight: .medium, design: .default))
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .frame(width: 64)
+        }
+    }
+}

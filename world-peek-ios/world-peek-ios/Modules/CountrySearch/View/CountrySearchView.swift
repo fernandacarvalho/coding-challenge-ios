@@ -1,0 +1,74 @@
+import SwiftUI
+
+struct CountrySearchView: View {
+    @StateObject var viewModel: CountrySearchViewModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            header
+                .padding(.horizontal, 20)
+
+            continentFilters
+
+            CountryListView(countries: viewModel.filteredCountries)
+        }
+        .padding(.top, 20)
+        .background(Color.parchment.ignoresSafeArea())
+    }
+}
+
+private extension CountrySearchView {
+    var header: some View {
+        VStack {
+            titleSection
+            searchBar
+        }
+    }
+
+    var titleSection: some View {
+        Text("World Peek")
+            .font(.system(size: 28, weight: .bold, design: .default))
+            .foregroundColor(.black)
+    }
+
+    var searchBar: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.blueGrey)
+                .font(.system(size: 16, weight: .medium))
+
+            TextField(
+                "type a country",
+                text: Binding(
+                    get: { viewModel.searchQuery },
+                    set: { viewModel.updateQuery($0) }
+                )
+            )
+            .font(.system(size: 15, design: .default))
+            .foregroundColor(.black)
+            .autocorrectionDisabled()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 13)
+        .background(.white)
+        .clipShape(RoundedRectangle(cornerRadius: 24))
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
+    }
+
+    var continentFilters: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 16) {
+                ForEach(Continent.allCases) { continent in
+                    ContinentFilterView(
+                        continent: continent,
+                        isSelected: viewModel.selectedContinent == continent,
+                        onTap: { viewModel.selectContinent(continent) }
+                    )
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 6)
+        }
+    }
+
+}
