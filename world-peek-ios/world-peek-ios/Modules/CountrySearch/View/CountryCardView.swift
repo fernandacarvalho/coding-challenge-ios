@@ -10,9 +10,10 @@ struct CountryCardView: View {
             Text(country.name)
                 .font(.system(size: 13, weight: .semibold, design: .default))
                 .foregroundColor(.black)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
                 .padding(.horizontal, 10)
-                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity, minHeight: 44, maxHeight: 44, alignment: .leading)
                 .background(.white)
         }
         .clipShape(RoundedRectangle(cornerRadius: 14))

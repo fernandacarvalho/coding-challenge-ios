@@ -1,17 +1,27 @@
 import Foundation
 import Combine
 
-@MainActor
 final class CountrySearchViewModel: ObservableObject {
     @Published private(set) var searchQuery: String = ""
     @Published private(set) var selectedContinent: Continent = Continent.allCases[0]
-    @Published private(set) var countries: [Country] = Country.samples
+    @Published private(set) var countries: [Country] = []
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var errorMessage: String? = nil
+
+    private let repository: CountrySearchRepositoring
+    private var fetchTask: Task<Void, Never>?
 
     var filteredCountries: [Country] {
-        countries.filter { country in
-            country.region == selectedContinent.rawValue &&
-            (searchQuery.isEmpty || country.name.localizedCaseInsensitiveContains(searchQuery))
-        }
+        guard !searchQuery.isEmpty else { return countries }
+        return countries.filter { $0.name.localizedCaseInsensitiveContains(searchQuery) }
+    }
+
+    init(repository: CountrySearchRepositoring) {
+        self.repository = repository
+    }
+    
+    func setup() {
+        loadCurrentContinent()
     }
 
     func updateQuery(_ query: String) {
@@ -20,7 +30,28 @@ final class CountrySearchViewModel: ObservableObject {
 
     func selectContinent(_ continent: Continent) {
         selectedContinent = continent
+        loadCurrentContinent()
     }
+}
 
-    init() {}
+private extension CountrySearchViewModel {
+    @MainActor
+    func loadCurrentContinent() {
+        fetchTask?.cancel()
+        fetchTask = Task { [weak self] in
+            guard let self else { return }
+            isLoading = true
+            errorMessage = nil
+            do {
+                let result = try await repository.fetchCountries(for: selectedContinent)
+                guard !Task.isCancelled else { return }
+                countries = result
+            } catch {
+                guard !Task.isCancelled else { return }
+                errorMessage = "Failed to load countries. Please try again."
+                countries = []
+            }
+            isLoading = false
+        }
+    }
 }

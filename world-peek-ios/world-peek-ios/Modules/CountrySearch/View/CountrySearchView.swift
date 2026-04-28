@@ -6,11 +6,8 @@ struct CountrySearchView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             header
-                .padding(.horizontal, 20)
-
             continentFilters
-
-            CountryListView(countries: viewModel.filteredCountries)
+            contentArea
         }
         .padding(.top, 20)
         .background(Color.parchment.ignoresSafeArea())
@@ -23,6 +20,7 @@ private extension CountrySearchView {
             titleSection
             searchBar
         }
+        .padding(.horizontal, 20)
     }
 
     var titleSection: some View {
@@ -71,4 +69,15 @@ private extension CountrySearchView {
         }
     }
 
+    @ViewBuilder
+    var contentArea: some View {
+        if viewModel.isLoading {
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else if let error = viewModel.errorMessage {
+            ErrorBannerView(message: error)
+        } else {
+            CountryListView(countries: viewModel.filteredCountries)
+        }
+    }
 }
