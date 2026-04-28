@@ -10,13 +10,13 @@ enum Continent: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     var label: String { rawValue }
 
-    var systemImage: String {
+    var icon: String {
         switch self {
-        case .africa:   return "sun.max.fill"
-        case .asia:     return "building.2.fill"
-        case .europe:   return "building.columns.fill"
-        case .americas: return "globe.americas.fill"
-        case .oceania:  return "drop.fill"
+        case .africa:   return "africa"
+        case .asia:     return "asia"
+        case .europe:   return "europe"
+        case .americas: return "america"
+        case .oceania:  return "oceania"
         }
     }
 

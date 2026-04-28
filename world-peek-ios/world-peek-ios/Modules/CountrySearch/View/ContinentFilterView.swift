@@ -14,8 +14,10 @@ struct ContinentFilterView: View {
                         .frame(width: 56, height: 56)
                         .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
 
-                    Image(systemName: continent.systemImage)
-                        .font(.system(size: 22))
+                    Image(continent.icon)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 28, height: 28)
                         .foregroundColor(isSelected ? .white : .blueGrey)
                 }
             }
