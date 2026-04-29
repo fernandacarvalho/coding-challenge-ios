@@ -25,7 +25,6 @@ final class SearchCoordinator: Coordinator {
     }
 
     func start() {
-
         let (viewController, viewModel) =
             CountrySearchUIComposer.make(
                 deps: deps

@@ -5,11 +5,10 @@
 //  Created by Fernanda Carvalho on 28/04/26.
 //
 
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct CountryInfoCardView: View {
-
     @ObservedObject var viewModel: CountryDetailsViewModel
 
     private let animation: Animation = .spring(
@@ -177,7 +176,6 @@ struct CountryInfoCardView: View {
 
 private extension CountryInfoCardView {
     var regionSubregionText: String {
-
         if let sub = viewModel.country.subregion, !sub.isEmpty {
             return "\(viewModel.country.region) · \(sub)"
         }
@@ -185,7 +183,6 @@ private extension CountryInfoCardView {
     }
 
     var formattedPopulation: String {
-
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
 
@@ -195,7 +192,6 @@ private extension CountryInfoCardView {
     }
 
     var formattedCurrencies: String {
-
         viewModel.country.currencies
             .map { "\($0.name) (\($0.symbol))" }
             .joined(separator: ", ")

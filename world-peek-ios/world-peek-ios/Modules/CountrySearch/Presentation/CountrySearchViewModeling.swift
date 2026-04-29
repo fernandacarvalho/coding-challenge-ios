@@ -12,7 +12,7 @@ protocol CountrySearchViewModeling {
     var isLoading: Bool { get }
     var selectedContinent: Continent { get }
     var onSelectCountry: ((Country) -> Void)? { get set }
-    
+
     func setup()
     func updateQuery(_ query: String)
     func selectContinent(_ continent: Continent)

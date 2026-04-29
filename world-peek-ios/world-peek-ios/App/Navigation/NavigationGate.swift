@@ -8,7 +8,6 @@
 import Foundation
 
 actor NavigationGate {
-
     private var isNavigating = false
 
     func tryEnter() -> Bool {

@@ -25,13 +25,18 @@ opt_in_rules:
   - explicit_init
   - redundant_nil_coalescing
   - prefer_self_type_over_type_of_self
-  - unused_import
   - empty_count
   - contains_over_filter_count
   - contains_over_filter_is_empty
   - contains_over_range_nil_comparison
   - flatmap_over_map_reduce
   - prefer_zero_over_explicit_init
+
+# ---------------------------------------------------------------------------
+# Analyzer rules (run only with `swiftlint analyze`)
+# ---------------------------------------------------------------------------
+analyzer_rules:
+  - unused_import
 
 # ---------------------------------------------------------------------------
 # Disabled rules

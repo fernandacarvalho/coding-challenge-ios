@@ -1,12 +1,14 @@
-import SwiftUI
 import Kingfisher
+import SwiftUI
 
 struct CountryCardView: View {
     let country: Country
     var onSelect: (Country) -> Void
 
     var body: some View {
-        Button(action: { self.onSelect(self.country) }) {
+        Button(action: {
+            self.onSelect(self.country)
+        }, label: {
             VStack(spacing: 0) {
                 flagImage
 
@@ -21,7 +23,7 @@ struct CountryCardView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 2)
-        }
+        })
     }
 }
 

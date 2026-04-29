@@ -28,7 +28,6 @@ final class DetailsCoordinator: Coordinator {
     }
 
     func start() {
-
         let (viewController, _) =
             CountryDetailsUIComposer.make(
                 deps: deps,

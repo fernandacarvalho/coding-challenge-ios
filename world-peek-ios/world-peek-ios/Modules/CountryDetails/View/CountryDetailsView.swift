@@ -5,8 +5,8 @@
 //  Created by Fernanda Carvalho on 28/04/26.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct CountryDetailsView: View {
     @StateObject private var viewModel: CountryDetailsViewModel
@@ -47,7 +47,6 @@ struct CountryDetailsView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-
             mapLayer
 
             if isCardVisible {

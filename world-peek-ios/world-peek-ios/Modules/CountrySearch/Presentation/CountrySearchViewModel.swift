@@ -4,7 +4,7 @@ import Foundation
 final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject {
     // MARK: Dependencies
     private let repository: CountrySearchRepositoring
-    
+
     // MARK: Properties
     private var fetchTask: Task<Void, Never>?
 
@@ -13,19 +13,19 @@ final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject 
     @Published private(set) var selectedContinent: Continent = Continent.allCases[0]
     @Published private(set) var countries: [Country] = []
     @Published private(set) var isLoading: Bool = false
-    @Published private(set) var errorMessage: String? = nil
+    @Published private(set) var errorMessage: String?
 
     var filteredCountries: [Country] {
         guard !searchQuery.isEmpty else { return countries }
         return countries.filter { $0.name.localizedCaseInsensitiveContains(searchQuery) }
     }
-    
+
     var onSelectCountry: ((Country) -> Void)?
 
     init(repository: CountrySearchRepositoring) {
         self.repository = repository
     }
-    
+
     // MARK: Inputs
     func setup() {
         loadCurrentContinent()
@@ -39,7 +39,7 @@ final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject 
         selectedContinent = continent
         loadCurrentContinent()
     }
-    
+
     func selectCountry(_ country: Country) {
         onSelectCountry?(country)
     }

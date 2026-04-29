@@ -17,7 +17,7 @@ enum CountryDetailsUIComposer {
         let viewModel = CountryDetailsViewModel(country: country)
         let rootView = CountryDetailsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
-        
+
         return (hostingController, viewModel)
     }
 }

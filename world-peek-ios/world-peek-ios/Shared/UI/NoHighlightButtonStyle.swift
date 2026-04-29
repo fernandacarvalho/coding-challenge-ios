@@ -10,9 +10,7 @@ import SwiftUI
 // MARK: Remove highlight no tap
 
 struct NoHighlightButtonStyle: ButtonStyle {
-
     func makeBody(configuration: Configuration) -> some View {
-
         configuration.label
             .opacity(1)
             .scaleEffect(1)

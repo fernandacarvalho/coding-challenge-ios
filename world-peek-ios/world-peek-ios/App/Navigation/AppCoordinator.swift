@@ -34,9 +34,7 @@ final class AppCoordinator: NSObject, Coordinator {
 }
 
 private extension AppCoordinator {
-
     func showDetails(_ country: Country) {
-
         Task { @MainActor [weak self] in
             guard
                 let self,
@@ -64,7 +62,6 @@ private extension AppCoordinator {
 }
 
 extension AppCoordinator: UINavigationControllerDelegate {
-
     func navigationController(
         _ navigationController: UINavigationController,
         didShow viewController: UIViewController,
