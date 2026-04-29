@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class SearchCoordinator: Coordinator {
+final class CountrySearchCoordinator: Coordinator {
     let navigationController: UINavigationController
 
     var childCoordinators: [Coordinator] = []
@@ -25,18 +25,20 @@ final class SearchCoordinator: Coordinator {
     }
 
     func start() {
-        let (viewController, viewModel) =
-            CountrySearchUIComposer.make(
-                deps: deps
-            )
-
-        viewModel.onSelectCountry = { [weak self] country in
-            self?.onCountrySelected?(country)
-        }
+        let (viewController, viewModel) = CountrySearchUIComposer.make(deps: deps)
+        bindViewModel(to: viewModel)
 
         navigationController.setViewControllers(
             [viewController],
             animated: false
         )
+    }
+}
+
+private extension CountrySearchCoordinator {
+    func bindViewModel(to viewModel: CountrySearchViewModel) {
+        viewModel.onSelectCountry = { [weak self] country in
+            self?.onCountrySelected?(country)
+        }
     }
 }

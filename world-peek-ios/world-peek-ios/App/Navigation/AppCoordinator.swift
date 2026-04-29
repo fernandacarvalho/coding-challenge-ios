@@ -18,7 +18,7 @@ final class AppCoordinator: NSObject, Coordinator {
     }
 
     func start() {
-        let searchCoordinator = SearchCoordinator(
+        let searchCoordinator = CountrySearchCoordinator(
             navigationController: navigationController,
             deps: deps
         )
@@ -43,7 +43,7 @@ private extension AppCoordinator {
                 return
             }
 
-            let detailsCoordinator = DetailsCoordinator(
+            let detailsCoordinator = CountryDetailsCoordinator(
                 navigationController: navigationController,
                 deps: deps,
                 country: country

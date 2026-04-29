@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class DetailsCoordinator: Coordinator {
+final class CountryDetailsCoordinator: Coordinator {
     let navigationController: UINavigationController
 
     var childCoordinators: [Coordinator] = []
@@ -28,11 +28,8 @@ final class DetailsCoordinator: Coordinator {
     }
 
     func start() {
-        let (viewController, _) =
-            CountryDetailsUIComposer.make(
-                deps: deps,
-                country: country
-            )
+        let (viewController, viewModel) = CountryDetailsUIComposer.make(deps: deps, country: country)
+        bindViewModel(to: viewModel)
 
         navigationController.pushViewController(
             viewController,
@@ -42,5 +39,13 @@ final class DetailsCoordinator: Coordinator {
 
     deinit {
         onFinish?()
+    }
+}
+
+private extension CountryDetailsCoordinator {
+    func bindViewModel(to viewModel: CountryDetailsViewModel) {
+        viewModel.onOpenURL = { url in
+            UIApplication.shared.open(url)
+        }
     }
 }

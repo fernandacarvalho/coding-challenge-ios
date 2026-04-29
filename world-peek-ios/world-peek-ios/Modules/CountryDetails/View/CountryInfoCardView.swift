@@ -138,6 +138,15 @@ struct CountryInfoCardView: View {
                     )
                 }
 
+                WPDefaultButton(
+                    title: "Search for tickets",
+                    accessibilityId: AccessibilityIdentifier.CountryDetails.searchForTickets,
+                    action: viewModel.searchForTickets
+                )
+                .padding(.top, 24)
+                .padding(.bottom, 16)
+                .padding(.horizontal, 24)
+
                 Color.clear.frame(height: safeAreaBottomPadding)
             }
         }
