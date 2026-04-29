@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct CountryCardView: View {
     let country: Country
@@ -30,19 +31,10 @@ private extension CountryCardView {
             .frame(maxWidth: .infinity)
             .frame(height: 120)
             .overlay {
-                AsyncImage(url: country.flagURL) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } else if phase.error != nil {
-                        Image(systemName: "photo")
-                            .font(.system(size: 28))
-                            .foregroundColor(.mutedTeal)
-                    } else {
-                        ProgressView().tint(.mutedTeal)
-                    }
-                }
+                KFImage(country.flagURL)
+                    .placeholder { Color.teaGreen }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
             }
             .clipped()
     }

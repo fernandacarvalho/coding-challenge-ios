@@ -10,8 +10,14 @@ import Foundation
 
 final class CountryDetailsViewModel: ObservableObject {
     private(set) var country: Country
+
+    @Published var isCardExpanded = true
     
     init(country: Country) {
         self.country = country
+    }
+
+    func toggleCard() {
+        isCardExpanded.toggle()
     }
 }
