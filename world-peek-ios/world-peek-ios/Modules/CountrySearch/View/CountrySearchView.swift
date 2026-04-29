@@ -10,7 +10,7 @@ struct CountrySearchView: View {
             contentArea
         }
         .padding(.top, 20)
-        .background(Color.parchment.ignoresSafeArea())
+        .background(AppColor.background01.ignoresSafeArea())
         .navigationBarHidden(true)
     }
 }
@@ -27,13 +27,13 @@ private extension CountrySearchView {
     var titleSection: some View {
         Text("World Peek")
             .font(.system(size: 28, weight: .bold, design: .default))
-            .foregroundColor(.black)
+            .foregroundColor(AppColor.textPrimary)
     }
 
     var searchBar: some View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(.blueGrey)
+                .foregroundColor(AppColor.secondary)
                 .font(.system(size: 16, weight: .medium))
 
             TextField(
@@ -43,8 +43,8 @@ private extension CountrySearchView {
                     set: { viewModel.updateQuery($0) }
                 )
             )
-            .font(.system(size: 15, design: .default))
-            .foregroundColor(.black)
+            .font(.system(size: 15))
+            .foregroundColor(AppColor.textDark)
             .autocorrectionDisabled()
         }
         .padding(.horizontal, 16)

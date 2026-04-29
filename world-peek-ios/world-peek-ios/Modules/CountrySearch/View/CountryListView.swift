@@ -13,7 +13,7 @@ struct CountryListView: View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Countries")
                 .font(.system(size: 20, weight: .bold, design: .default))
-                .foregroundColor(.black)
+                .foregroundColor(AppColor.textSecondary)
                 .padding(.horizontal, 20)
 
             ScrollView {

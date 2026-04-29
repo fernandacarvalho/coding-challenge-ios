@@ -22,19 +22,19 @@ struct WPDefaultButton: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
-                        .foregroundColor(.parchment)
-                        .tint(Color.parchment)
+                        .foregroundColor(AppColor.textLight)
+                        .tint(AppColor.primary)
                 }
                 Text(title.uppercased())
                     .font(.system(size: 13, weight: .bold))
                     .lineLimit(1)
-                    .foregroundColor(.parchment)
+                    .foregroundColor(AppColor.textLight)
                     .multilineTextAlignment(.center)
             }
         }
         .frame(height: Constants.buttonHeight)
         .frame(maxWidth: .infinity)
-        .background(Color.tangerineDream)
+        .background(AppColor.primary)
         .cornerRadius(Constants.buttonRadius)
         .padding(.horizontal, Constants.buttonHorizontalPadding)
     }

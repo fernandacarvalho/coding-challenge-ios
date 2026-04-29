@@ -10,7 +10,7 @@ struct ContinentFilterView: View {
             Button(action: onTap) {
                 ZStack {
                     Circle()
-                        .fill(isSelected ? Color.tangerineDream : .white)
+                        .fill(isSelected ? AppColor.primary : .white)
                         .frame(width: 56, height: 56)
                         .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
 
@@ -18,14 +18,16 @@ struct ContinentFilterView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 28, height: 28)
-                        .foregroundColor(isSelected ? .white : .blueGrey)
+                        .foregroundColor(
+                            isSelected ? .white : AppColor.secondary
+                        )
                 }
             }
             .buttonStyle(.plain)
 
             Text(continent.label)
                 .font(.system(size: 11, weight: .medium, design: .default))
-                .foregroundColor(.black)
+                .foregroundColor(AppColor.textPrimary)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(width: 64)

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Country: Identifiable, Equatable {
+struct Country: Identifiable, Equatable, Sendable {
     let id: String
     let name: String
     let officialName: String
@@ -16,12 +16,12 @@ struct Country: Identifiable, Equatable {
     let languages: [String]
 }
 
-struct Currency: Equatable {
+struct Currency: Equatable, Sendable {
     let name: String
     let symbol: String
 }
 
-struct LatLong: Equatable {
+struct LatLong: Equatable, Sendable {
     let lat: Double
     let long: Double
 }

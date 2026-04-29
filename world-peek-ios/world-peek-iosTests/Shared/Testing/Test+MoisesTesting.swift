@@ -31,7 +31,7 @@ extension Test {
             sourceLocation: SourceLocation = #_sourceLocation
         ) {
             for object in objects {
-                weak var weakRef = object
+                weak let weakRef = object
 
                 leakTrackers.append(LeakTracker(
                     objectType: String(describing: type(of: object)),

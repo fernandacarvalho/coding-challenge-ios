@@ -21,7 +21,8 @@ final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
-
+        
+        let expectedLatLong = LatLong(lat: -30.0, long: -71.0)
         #expect(country?.id == "Germany")
         #expect(country?.name == "Germany")
         #expect(country?.officialName == "Federal Republic of Germany")
@@ -33,7 +34,7 @@ final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
         #expect(country?.population == 83_000_000)
         #expect(country?.capital == ["Berlin"])
         #expect(country?.mapsURL == URL(string: "https://goo.gl/maps/germany"))
-        #expect(country?.latLong == LatLong(lat: -30.0, long: -71.0))
+        #expect(country?.latLong == expectedLatLong)
         #expect(country?.languages == ["German"])
     }
 

@@ -35,13 +35,13 @@ struct CountryInfoCardView: View {
         } label: {
             ZStack {
                 Circle()
-                    .fill(Color.white)
+                    .fill(AppColor.background02)
                     .frame(width: 48, height: 48)
                     .shadow(color: .black.opacity(0.25), radius: 3, x: 0, y: -1)
 
                 Image(systemName: "chevron.up")
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(.tangerineDream)
+                    .foregroundColor(AppColor.primary)
                     .rotationEffect(
                         .degrees(viewModel.isCardExpanded ? 180 : 0)
                     )
@@ -67,7 +67,7 @@ struct CountryInfoCardView: View {
                 .padding(.top, 16)
         }
         .padding(.bottom, viewModel.isCardExpanded ? 0 : 16)
-        .background(Color.white)
+        .background(AppColor.background02)
         .clipShape(
             RoundedRectangle(cornerRadius: 24, style: .continuous)
         )
@@ -87,11 +87,12 @@ struct CountryInfoCardView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.country.name)
                     .font(.system(size: 17, weight: .bold))
+                    .foregroundColor(AppColor.textPrimary)
                     .lineLimit(2)
 
                 Text(viewModel.country.officialName)
                     .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(AppColor.textSecondary)
                     .lineLimit(2)
             }
 
@@ -160,18 +161,18 @@ struct CountryInfoCardView: View {
     private func iconRow(icon: String, label: String, value: String) -> some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: icon)
-                .foregroundColor(.mutedTeal)
+                .foregroundColor(AppColor.success)
                 .frame(width: 30, height: 30, alignment: .center)
 
             Text("\(label) : ")
                 .font(.system(size: 13, weight: .medium))
-                .foregroundColor(.black)
+                .foregroundColor(AppColor.textPrimary)
                 .fixedSize()
 
             Text(value)
                 .font(.system(size: 13, weight: .regular))
                 .fixedSize(horizontal: false, vertical: true)
-                .foregroundColor(.black)
+                .foregroundColor(AppColor.textPrimary)
 
             Spacer(minLength: 0)
         }

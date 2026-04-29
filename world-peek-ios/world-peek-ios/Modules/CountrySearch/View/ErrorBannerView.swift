@@ -7,10 +7,10 @@ struct ErrorBannerView: View {
         VStack(spacing: 12) {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 32))
-                .foregroundColor(.blueGrey)
+                .foregroundColor(AppColor.error)
             Text(message)
                 .font(.system(size: 14))
-                .foregroundColor(.blueGrey)
+                .foregroundColor(AppColor.textPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
         }
