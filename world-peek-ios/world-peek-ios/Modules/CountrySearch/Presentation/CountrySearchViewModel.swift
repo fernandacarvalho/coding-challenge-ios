@@ -8,7 +8,7 @@ final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject 
     // MARK: Properties
     private var fetchTask: Task<Void, Never>?
 
-    //MARK: Outputs
+    // MARK: Outputs
     @Published private(set) var searchQuery: String = ""
     @Published private(set) var selectedContinent: Continent = Continent.allCases[0]
     @Published private(set) var countries: [Country] = []
@@ -26,7 +26,7 @@ final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject 
         self.repository = repository
     }
     
-    //MARK: Inputs
+    // MARK: Inputs
     func setup() {
         loadCurrentContinent()
     }
