@@ -1,0 +1,45 @@
+#!/bin/bash
+# Pre-commit hook: runs SwiftLint on staged Swift files.
+# Install once per clone with: make setup
+
+set -euo pipefail
+
+# ── 1. Skip if no Swift files are staged ────────────────────────────────────
+STAGED_SWIFT=$(git diff --cached --name-only --diff-filter=d | grep '\.swift$' || true)
+if [ -z "$STAGED_SWIFT" ]; then
+    exit 0
+fi
+
+# ── 2. Locate SwiftLint binary ───────────────────────────────────────────────
+SWIFTLINT=""
+if command -v swiftlint > /dev/null 2>&1; then
+    SWIFTLINT="swiftlint"
+elif [ -f "/opt/homebrew/bin/swiftlint" ]; then
+    SWIFTLINT="/opt/homebrew/bin/swiftlint"
+elif [ -f "/usr/local/bin/swiftlint" ]; then
+    SWIFTLINT="/usr/local/bin/swiftlint"
+fi
+
+if [ -z "$SWIFTLINT" ]; then
+    echo "warning: SwiftLint not found — skipping lint. Install with: brew install swiftlint"
+    exit 0
+fi
+
+# ── 3. Run SwiftLint from the project root where .swiftlint.yml lives ───────
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="$REPO_ROOT/world-peek-ios"
+
+echo "Running SwiftLint..."
+
+cd "$PROJECT_DIR"
+if ! $SWIFTLINT lint --config .swiftlint.yml; then
+    echo ""
+    echo "SwiftLint found errors. Commit blocked."
+    echo "Fix the errors above and try again."
+    echo "To skip this check (not recommended): git commit --no-verify"
+    exit 1
+fi
+
+echo "SwiftLint passed."
+exit 0
