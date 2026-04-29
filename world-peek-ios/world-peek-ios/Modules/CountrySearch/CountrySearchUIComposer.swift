@@ -1,9 +1,9 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 enum CountrySearchUIComposer {
     static func make(
-        deps: AppDependencies
+        deps: AppDependencies,
     ) -> (UIViewController, CountrySearchViewModel) {
         let service = CountrySearchServiceRemote(client: deps.httpClient)
         let repository = CountrySearchRepository(service: service)

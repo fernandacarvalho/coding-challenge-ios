@@ -83,6 +83,21 @@ final class CountrySearchViewModelTests: Test.MoisesTesting {
         #expect(sut.filteredCountries.count == 1)
         #expect(sut.filteredCountries[0].name == "Brazil")
     }
+    
+    @Test("selectCountry triggers onSelect callback")
+    func selectCountry_triggersCallback() async throws {
+        let expected = [Country.fixture()]
+        let (sut, _) = makeSUT(toBeReturned: .success(expected))
+        sut.setup()
+        await Task.yield()
+        var called = false
+        sut.onSelectCountry = { _ in called = true }
+        
+        let country = try #require(sut.countries.first)
+        sut.selectCountry(country)
+        
+        #expect(called == true)
+    }
 }
 
 // MARK: - Test Infrastructure

@@ -19,6 +19,6 @@ final class CountrySearchServiceRemote: CountrySearchServicing {
 private extension CountrySearchServiceRemote {
     enum Constants {
         static let baseURL = "https://restcountries.com/v3.1/region"
-        static let fields = "name,capital,maps,flags,region,subregion,population,currencies,tld,languages"
+        static let fields = "name,capital,maps,latlng,flags,region,subregion,population,currencies,languages"
     }
 }

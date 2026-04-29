@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CountryListView: View {
     let countries: [Country]
+    let onSelect: (Country) -> Void
 
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 12),
@@ -18,7 +19,7 @@ struct CountryListView: View {
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(countries) { country in
-                        CountryCardView(country: country)
+                        CountryCardView(country: country, onSelect: onSelect)
                     }
                 }
                 .padding(.horizontal, 20)

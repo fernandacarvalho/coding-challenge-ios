@@ -25,7 +25,11 @@ struct CountryDTOToCountryDomainMapper {
             population: dto.population,
             capital: dto.capital ?? [],
             mapsURL: dto.maps.flatMap { URL(string: $0.googleMaps) },
-            tld: dto.tld ?? [],
+            latLong: dto.latlng.flatMap {
+                $0.count >= 2
+                    ? LatLong(lat: $0[0], long: $0[1])
+                    : nil
+            },
             languages: dto.languages.map { Array($0.values) } ?? []
         )
     }

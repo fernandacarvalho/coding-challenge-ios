@@ -11,7 +11,7 @@ extension CountryDTO {
         population: Int = 214_326_000,
         capital: [String]? = ["Brasília"],
         maps: Maps? = nil,
-        tld: [String]? = [".br"],
+        latlng: [Double]? = nil,
         languages: [String: String]? = ["por": "Portuguese"]
     ) -> CountryDTO {
         CountryDTO(
@@ -23,7 +23,7 @@ extension CountryDTO {
             population: population,
             capital: capital,
             maps: maps,
-            tld: tld,
+            latlng: latlng,
             languages: languages
         )
     }

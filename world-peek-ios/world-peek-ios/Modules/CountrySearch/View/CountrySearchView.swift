@@ -11,6 +11,7 @@ struct CountrySearchView: View {
         }
         .padding(.top, 20)
         .background(Color.parchment.ignoresSafeArea())
+        .navigationBarHidden(true)
     }
 }
 
@@ -77,7 +78,7 @@ private extension CountrySearchView {
         } else if let error = viewModel.errorMessage {
             ErrorBannerView(message: error)
         } else {
-            CountryListView(countries: viewModel.filteredCountries)
+            CountryListView(countries: viewModel.filteredCountries, onSelect: viewModel.selectCountry(_:))
         }
     }
 }

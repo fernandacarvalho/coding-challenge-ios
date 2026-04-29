@@ -12,11 +12,16 @@ struct Country: Identifiable, Equatable {
     let population: Int
     let capital: [String]
     let mapsURL: URL?
-    let tld: [String]
+    let latLong: LatLong?
     let languages: [String]
 }
 
 struct Currency: Equatable {
     let name: String
     let symbol: String
+}
+
+struct LatLong: Equatable {
+    let lat: Double
+    let long: Double
 }

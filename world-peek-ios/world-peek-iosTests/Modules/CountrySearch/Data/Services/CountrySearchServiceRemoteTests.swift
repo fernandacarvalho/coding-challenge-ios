@@ -17,7 +17,7 @@ final class CountrySearchServiceRemoteTests: Test.MoisesTesting {
 
         let url = try #require(spies.httpClient.sendReceivedRequests[0].url)
         #expect(url.path.contains("/region/\(region.rawValue.lowercased())") == true)
-        #expect(url.query?.contains("fields=name,capital,maps,flags,region,subregion,population,currencies,tld,languages") == true)
+        #expect(url.query?.contains("fields=name,capital,maps,latlng,flags,region,subregion,population,currencies,languages") == true)
     }
 
     @Test("fetchCountries decodes valid JSON response into CountryDTO array")

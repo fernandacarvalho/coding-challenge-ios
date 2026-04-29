@@ -14,7 +14,7 @@ extension Country {
         population: Int = 214_326_000,
         capital: [String] = ["Brasília"],
         mapsURL: URL? = nil,
-        tld: [String] = [".br"],
+        latLong: LatLong? = nil,
         languages: [String] = ["Portuguese"]
     ) -> Country {
         Country(
@@ -29,7 +29,7 @@ extension Country {
             population: population,
             capital: capital,
             mapsURL: mapsURL,
-            tld: tld,
+            latLong: latLong,
             languages: languages
         )
     }

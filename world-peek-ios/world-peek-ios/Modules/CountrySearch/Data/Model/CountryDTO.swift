@@ -28,6 +28,6 @@ struct CountryDTO: Decodable {
     let population: Int
     let capital: [String]?
     let maps: Maps?
-    let tld: [String]?
+    let latlng: [Double]?
     let languages: [String: String]?
 }

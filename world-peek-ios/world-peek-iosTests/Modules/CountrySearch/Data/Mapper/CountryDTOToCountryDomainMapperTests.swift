@@ -16,7 +16,7 @@ final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
             population: 83_000_000,
             capital: ["Berlin"],
             maps: .init(googleMaps: "https://goo.gl/maps/germany"),
-            tld: [".de"],
+            latlng: [-30.0, -71.0],
             languages: ["deu": "German"]
         )
 
@@ -33,7 +33,7 @@ final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
         #expect(country?.population == 83_000_000)
         #expect(country?.capital == ["Berlin"])
         #expect(country?.mapsURL == URL(string: "https://goo.gl/maps/germany"))
-        #expect(country?.tld == [".de"])
+        #expect(country?.latLong == LatLong(lat: -30.0, long: -71.0))
         #expect(country?.languages == ["German"])
     }
 
@@ -133,12 +133,12 @@ final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
     }
 
     @Test("maps nil tld to empty array")
-    func map_withNilTld_mapsToEmptyTldArray() {
-        let dto = CountryDTO.fixture(tld: nil)
+    func map_withNilLatlng_mapsToNilLatLong() {
+        let dto = CountryDTO.fixture(latlng: nil)
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
 
-        #expect(country?.tld == [])
+        #expect(country?.latLong == nil)
     }
 
     @Test("maps nil languages to empty array")
