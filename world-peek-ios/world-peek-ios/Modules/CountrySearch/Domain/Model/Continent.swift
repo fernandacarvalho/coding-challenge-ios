@@ -8,7 +8,7 @@ enum Continent: String, CaseIterable, Identifiable {
     case oceania = "Oceania"
 
     var id: String { rawValue }
-    var label: String { rawValue }
+    var label: String { NSLocalizedString(rawValue, comment: "") }
 
     var icon: String {
         switch self {

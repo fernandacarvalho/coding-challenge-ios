@@ -111,26 +111,29 @@ struct CountryInfoCardView: View {
     private var expandedContent: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                iconRow(icon: "globe", label: "Region", value: regionSubregionText)
+                iconRow(icon: "globe", key: "region", label: String(localized: "Region"), value: regionSubregionText)
 
                 if !viewModel.country.capital.isEmpty {
                     iconRow(
                         icon: "building.columns.fill",
-                        label: "Capital",
+                        key: "capital",
+                        label: String(localized: "Capital"),
                         value: viewModel.country.capital.joined(separator: ", ")
                     )
                 }
 
                 iconRow(
                     icon: "person.2.fill",
-                    label: "Population",
+                    key: "population",
+                    label: String(localized: "Population"),
                     value: formattedPopulation
                 )
 
                 if !viewModel.country.languages.isEmpty {
                     iconRow(
                         icon: "text.bubble.fill",
-                        label: "Languages",
+                        key: "languages",
+                        label: String(localized: "Languages"),
                         value: viewModel.country.languages.joined(separator: ", ")
                     )
                 }
@@ -138,13 +141,14 @@ struct CountryInfoCardView: View {
                 if !viewModel.country.currencies.isEmpty {
                     iconRow(
                         icon: "banknote.fill",
-                        label: "Currencies",
+                        key: "currencies",
+                        label: String(localized: "Currencies"),
                         value: formattedCurrencies
                     )
                 }
 
                 WPDefaultButton(
-                    title: "Search for tickets",
+                    title: String(localized: "Search for tickets"),
                     accessibilityId: AccessibilityIdentifier.CountryDetails.searchForTickets,
                     action: viewModel.searchForTickets
                 )
@@ -163,7 +167,7 @@ struct CountryInfoCardView: View {
 
     // MARK: Row builder
 
-    private func iconRow(icon: String, label: String, value: String) -> some View {
+    private func iconRow(icon: String, key: String, label: String, value: String) -> some View {
         HStack(alignment: .center, spacing: 8) {
             Image(systemName: icon)
                 .foregroundColor(AppColor.success)
@@ -185,7 +189,7 @@ struct CountryInfoCardView: View {
         .frame(minHeight: 30)
         .padding(.horizontal, 20)
         .padding(.vertical, 5)
-        .accessibilityIdentifier(AccessibilityIdentifier.CountryDetails.infoRow(label))
+        .accessibilityIdentifier(AccessibilityIdentifier.CountryDetails.infoRow(key))
     }
 }
 

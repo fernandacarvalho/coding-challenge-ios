@@ -9,6 +9,6 @@ import Foundation
 
 enum AccessibilityHint {
     enum CountryDetails {
-        static let toggleCardButton = "Expand or collapse country's information card"
+        static let toggleCardButton = String(localized: "Expand or collapse country's information card")
     }
 }

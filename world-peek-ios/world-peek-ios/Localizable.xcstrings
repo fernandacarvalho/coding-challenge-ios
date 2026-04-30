@@ -1,0 +1,179 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ : " : {
+
+    },
+    "Africa" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "África"
+          }
+        }
+      }
+    },
+    "Americas" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Américas"
+          }
+        }
+      }
+    },
+    "Asia" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ásia"
+          }
+        }
+      }
+    },
+    "Capital" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Capital"
+          }
+        }
+      }
+    },
+    "Countries" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Países"
+          }
+        }
+      }
+    },
+    "Currencies" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moedas"
+          }
+        }
+      }
+    },
+    "Europe" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Europa"
+          }
+        }
+      }
+    },
+    "Expand or collapse country's information card" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expandir ou recolher o cartão de informações do país"
+          }
+        }
+      }
+    },
+    "Failed to load countries. Please try again." : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao carregar países. Tente novamente."
+          }
+        }
+      }
+    },
+    "Languages" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idiomas"
+          }
+        }
+      }
+    },
+    "Map" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mapa"
+          }
+        }
+      }
+    },
+    "Oceania" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oceania"
+          }
+        }
+      }
+    },
+    "Population" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "População"
+          }
+        }
+      }
+    },
+    "Region" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Região"
+          }
+        }
+      }
+    },
+    "Search for tickets" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar passagens"
+          }
+        }
+      }
+    },
+    "type a country" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "buscar um país"
+          }
+        }
+      }
+    },
+    "World Peek" : {
+      "localizations" : {
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "World Peek"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

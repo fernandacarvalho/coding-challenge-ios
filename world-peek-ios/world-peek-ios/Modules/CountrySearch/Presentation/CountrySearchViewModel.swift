@@ -59,7 +59,7 @@ private extension CountrySearchViewModel {
                 countries = result
             } catch {
                 guard !Task.isCancelled else { return }
-                errorMessage = "Failed to load countries. Please try again."
+                errorMessage = String(localized: "Failed to load countries. Please try again.")
                 countries = []
             }
             isLoading = false

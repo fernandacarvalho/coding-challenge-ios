@@ -24,7 +24,7 @@ struct ContinentFilterView: View {
                 }
             }
             .buttonStyle(.plain)
-            .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.continentFilter(continent.label))
+            .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.continentFilter(continent.id))
 
             Text(continent.label)
                 .font(.system(size: 11, weight: .medium, design: .default))
