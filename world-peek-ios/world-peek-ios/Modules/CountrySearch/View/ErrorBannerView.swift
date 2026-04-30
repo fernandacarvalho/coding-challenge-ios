@@ -13,6 +13,7 @@ struct ErrorBannerView: View {
                 .foregroundColor(AppColor.textPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+                .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.errorBanner)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

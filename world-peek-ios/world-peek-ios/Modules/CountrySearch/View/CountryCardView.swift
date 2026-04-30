@@ -24,6 +24,7 @@ struct CountryCardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 2)
         })
+        .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.countryCard(country.id))
     }
 }
 

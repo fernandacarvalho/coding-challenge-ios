@@ -99,5 +99,7 @@ struct CountryDetailsView: View {
             !viewModel.isCardExpanded
         )
         .ignoresSafeArea()
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Map")
     }
 }

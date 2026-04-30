@@ -26,5 +26,6 @@ struct CountryListView: View {
                 .padding(.bottom, 20)
             }
         }
+        .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.countryList)
     }
 }

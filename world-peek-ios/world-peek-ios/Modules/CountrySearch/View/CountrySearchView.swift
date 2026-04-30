@@ -43,6 +43,7 @@ private extension CountrySearchView {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(AppColor.secondary)
                 .font(.system(size: 16, weight: .medium))
+                .accessibilityHidden(true)
 
             TextField(
                 "type a country",
@@ -54,6 +55,7 @@ private extension CountrySearchView {
             .font(.system(size: 15))
             .foregroundColor(AppColor.textDark)
             .autocorrectionDisabled()
+            .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.countrySearch)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 13)
@@ -76,6 +78,7 @@ private extension CountrySearchView {
             .padding(.horizontal, 16)
             .padding(.vertical, 6)
         }
+        .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.continentFiltersSection)
     }
 
     @ViewBuilder
@@ -83,6 +86,7 @@ private extension CountrySearchView {
         if viewModel.isLoading {
             ProgressView()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.loadingIndicator)
         } else if let error = viewModel.errorMessage {
             ErrorBannerView(message: error)
                 .padding(.bottom, 54)

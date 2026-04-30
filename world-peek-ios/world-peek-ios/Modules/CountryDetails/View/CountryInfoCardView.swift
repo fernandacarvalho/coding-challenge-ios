@@ -45,10 +45,13 @@ struct CountryInfoCardView: View {
                     .rotationEffect(
                         .degrees(viewModel.isCardExpanded ? 180 : 0)
                     )
+                    .accessibilityHidden(true)
             }
         }
         .buttonStyle(NoHighlightButtonStyle())
         .zIndex(2)
+        .accessibilityIdentifier(AccessibilityIdentifier.CountryDetails.toggleCardButton)
+        .accessibilityHint(AccessibilityHint.CountryDetails.toggleCardButton)
     }
 
     // MARK: Card
@@ -83,6 +86,7 @@ struct CountryInfoCardView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 60, height: 40)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(viewModel.country.name)
@@ -154,6 +158,7 @@ struct CountryInfoCardView: View {
         .frame(maxHeight: viewModel.isCardExpanded ? 300 : 0, alignment: .top)
         .opacity(viewModel.isCardExpanded ? 1 : 0)
         .clipped()
+        .accessibilityIdentifier(AccessibilityIdentifier.CountryDetails.infoCard)
     }
 
     // MARK: Row builder
@@ -163,6 +168,7 @@ struct CountryInfoCardView: View {
             Image(systemName: icon)
                 .foregroundColor(AppColor.success)
                 .frame(width: 30, height: 30, alignment: .center)
+                .accessibilityHidden(true)
 
             Text("\(label) : ")
                 .font(.system(size: 13, weight: .medium))
@@ -179,6 +185,7 @@ struct CountryInfoCardView: View {
         .frame(minHeight: 30)
         .padding(.horizontal, 20)
         .padding(.vertical, 5)
+        .accessibilityIdentifier(AccessibilityIdentifier.CountryDetails.infoRow(label))
     }
 }
 

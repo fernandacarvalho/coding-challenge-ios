@@ -24,6 +24,7 @@ struct ContinentFilterView: View {
                 }
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.continentFilter(continent.label))
 
             Text(continent.label)
                 .font(.system(size: 11, weight: .medium, design: .default))
@@ -31,6 +32,7 @@ struct ContinentFilterView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .frame(width: 64)
+                .accessibilityHidden(true)
         }
     }
 }

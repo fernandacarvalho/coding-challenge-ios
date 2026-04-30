@@ -37,6 +37,7 @@ struct WPDefaultButton: View {
         .background(AppColor.primary)
         .cornerRadius(Constants.buttonRadius)
         .padding(.horizontal, Constants.buttonHorizontalPadding)
+        .accessibilityIdentifier(accessibilityId)
     }
 }
 
