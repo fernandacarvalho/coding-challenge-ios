@@ -4,14 +4,22 @@ struct CountrySearchView: View {
     @StateObject var viewModel: CountrySearchViewModel
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            header
-            continentFilters
-            contentArea
+        ZStack {
+            VStack(alignment: .leading, spacing: 20) {
+                header
+                continentFilters
+                contentArea
+            }
+            .padding(.top, 20)
+            .background(AppColor.background01.ignoresSafeArea())
+            .navigationBarHidden(true)
+
+            VStack {
+                Spacer()
+                BottomFadeOverlay(startColor: AppColor.background01, endColor: .clear)
+            }
+            .ignoresSafeArea(.all)
         }
-        .padding(.top, 20)
-        .background(AppColor.background01.ignoresSafeArea())
-        .navigationBarHidden(true)
     }
 }
 
@@ -77,6 +85,7 @@ private extension CountrySearchView {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else if let error = viewModel.errorMessage {
             ErrorBannerView(message: error)
+                .padding(.bottom, 54)
         } else {
             CountryListView(countries: viewModel.filteredCountries, onSelect: viewModel.selectCountry(_:))
         }

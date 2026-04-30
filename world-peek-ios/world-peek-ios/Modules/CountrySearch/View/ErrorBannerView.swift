@@ -5,11 +5,11 @@ struct ErrorBannerView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 32))
-                .foregroundColor(AppColor.error)
+            Image(systemName: "globe.americas.fill")
+                .font(.system(size: 80))
+                .foregroundColor(AppColor.grayish)
             Text(message)
-                .font(.system(size: 14))
+                .font(.system(size: 15))
                 .foregroundColor(AppColor.textPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
