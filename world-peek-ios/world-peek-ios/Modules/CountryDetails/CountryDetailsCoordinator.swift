@@ -44,8 +44,10 @@ final class CountryDetailsCoordinator: Coordinator {
 
 private extension CountryDetailsCoordinator {
     func bindViewModel(to viewModel: CountryDetailsViewModel) {
-        viewModel.onOpenURL = { url in
-            UIApplication.shared.open(url)
+        viewModel.onOpenURL = { [weak self] url in
+            guard let self else { return }
+            let (viewController, _) = FlightSearchUIComposer.make(deps: deps, url: url)
+            navigationController.pushViewController(viewController, animated: true)
         }
     }
 }
