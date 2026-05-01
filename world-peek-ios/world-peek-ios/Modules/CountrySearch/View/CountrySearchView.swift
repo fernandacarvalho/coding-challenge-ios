@@ -60,6 +60,7 @@ private extension CountrySearchView {
         .padding(.horizontal, 16)
         .padding(.vertical, 13)
         .background(.white)
+        .environment(\.colorScheme, .light)
         .clipShape(RoundedRectangle(cornerRadius: 24))
         .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
