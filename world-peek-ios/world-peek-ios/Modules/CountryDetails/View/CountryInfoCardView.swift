@@ -72,7 +72,13 @@ struct CountryInfoCardView: View {
         .padding(.bottom, viewModel.isCardExpanded ? 0 : 16)
         .background(AppColor.background02)
         .clipShape(
-            RoundedRectangle(cornerRadius: 24, style: .continuous)
+            UnevenRoundedRectangle(
+                topLeadingRadius: 24,
+                bottomLeadingRadius: 0,
+                bottomTrailingRadius: 0,
+                topTrailingRadius: 24,
+                style: .continuous
+            )
         )
         .shadow(color: .black.opacity(0.12), radius: 20, x: 0, y: -6)
     }

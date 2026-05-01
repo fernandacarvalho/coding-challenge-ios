@@ -31,6 +31,7 @@ final class CountryDetailsCoordinator: Coordinator {
         let (viewController, viewModel) = CountryDetailsUIComposer.make(deps: deps, country: country)
         bindViewModel(to: viewModel)
 
+        navigationController.navigationBar.tintColor = UIColor(named: "AppPrimary")
         navigationController.pushViewController(
             viewController,
             animated: true

@@ -18,6 +18,12 @@ enum CountryDetailsUIComposer {
         let rootView = CountryDetailsView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
 
+        let transparentAppearance = UINavigationBarAppearance()
+        transparentAppearance.configureWithTransparentBackground()
+        hostingController.navigationItem.standardAppearance = transparentAppearance
+        hostingController.navigationItem.scrollEdgeAppearance = transparentAppearance
+        hostingController.navigationItem.compactAppearance = transparentAppearance
+
         return (hostingController, viewModel)
     }
 }

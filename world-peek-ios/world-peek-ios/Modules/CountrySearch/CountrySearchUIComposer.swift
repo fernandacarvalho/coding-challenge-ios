@@ -16,6 +16,7 @@ enum CountrySearchUIComposer {
         viewModel.setup()
         let rootView = CountrySearchView(viewModel: viewModel)
         let hostingController = UIHostingController(rootView: rootView)
+        hostingController.navigationItem.backButtonDisplayMode = .minimal
 
         return (hostingController, viewModel)
     }
