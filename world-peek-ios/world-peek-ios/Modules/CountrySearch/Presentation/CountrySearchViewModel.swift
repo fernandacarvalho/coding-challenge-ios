@@ -46,10 +46,9 @@ final class CountrySearchViewModel: CountrySearchViewModeling, ObservableObject 
 }
 
 private extension CountrySearchViewModel {
-    @MainActor
     func loadCurrentContinent() {
         fetchTask?.cancel()
-        fetchTask = Task { [weak self] in
+        fetchTask = Task { @MainActor [weak self] in
             guard let self else { return }
             isLoading = true
             errorMessage = nil

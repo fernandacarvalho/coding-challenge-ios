@@ -6,7 +6,12 @@ enum CountrySearchUIComposer {
         deps: AppDependencies,
     ) -> (UIViewController, CountrySearchViewModel) {
         let service = CountrySearchServiceRemote(client: deps.httpClient)
-        let repository = CountrySearchRepository(service: service)
+        let cacheStore = CountryCacheStore()
+        let repository = CountrySearchRepository(
+            service: service,
+            cacheStore: cacheStore,
+            cacheConfiguration: deps.cacheConfiguration
+        )
         let viewModel = CountrySearchViewModel(repository: repository)
         viewModel.setup()
         let rootView = CountrySearchView(viewModel: viewModel)

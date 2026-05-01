@@ -3,6 +3,9 @@ import Foundation
 
 extension AppDependencies {
     static func makeForTesting() -> AppDependencies {
-        AppDependencies(httpClient: HTTPClientSpy())
+        AppDependencies(
+            httpClient: HTTPClientSpy(),
+            cacheConfiguration: .testing
+        )
     }
 }

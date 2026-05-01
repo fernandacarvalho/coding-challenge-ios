@@ -1,5 +1,5 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 enum FlightSearchUIComposer {
     static func make(

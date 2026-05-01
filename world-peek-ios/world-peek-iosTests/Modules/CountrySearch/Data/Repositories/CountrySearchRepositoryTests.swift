@@ -4,17 +4,19 @@ import Testing
 @Suite("CountrySearchRepository")
 final class CountrySearchRepositoryTests: Test.MoisesTesting {
 
+    // MARK: - Service delegation
+
     @Test(
         "fetchCountries delegates to service with continent rawValue as region",
         arguments: Continent.allCases
     )
-    func fetchCountries_callsServiceWithContinentRawValue(region: Continent) async throws {
+    func fetchCountries_callsServiceWithContinentRawValue(continent: Continent) async throws {
         let (sut, spies) = makeSUT()
 
-        _ = try await sut.fetchCountries(for: region)
+        _ = try await sut.fetchCountries(for: continent)
 
         #expect(spies.service.fetchCountriesCallsCount == 1)
-        #expect(spies.service.fetchCountriesReceivedRegions == [region.rawValue])
+        #expect(spies.service.fetchCountriesReceivedRegions == [continent.rawValue])
     }
 
     @Test("fetchCountries maps DTO to domain entity")
@@ -30,36 +32,87 @@ final class CountrySearchRepositoryTests: Test.MoisesTesting {
         #expect(result[0].region == dto.region)
     }
 
-    @Test("fetchCountries caches result and does not call service again for same continent")
-    func fetchCountries_cachesResult_skipsServiceOnSecondCall() async throws {
+    @Test("fetchCountries propagates service error")
+    func fetchCountries_propagatesServiceError() async {
         let (sut, spies) = makeSUT()
-        spies.service.fetchCountriesToBeReturned = .success([CountryDTO.fixture()])
+        spies.cacheStore.fetchToBeReturned = .success([])
+        spies.service.fetchCountriesToBeReturned = .failure(HTTPClientError.serverError(statusCode: 500))
+
+        await #expect(throws: (any Error).self) {
+            _ = try await sut.fetchCountries(for: .oceania)
+        }
+    }
+
+    // MARK: - Cache hit
+
+    @Test("fetchCountries when cache returns countries does not call service")
+    func fetchCountries_whenCacheHit_doesNotCallService() async throws {
+        let cached = [Country.fixture()]
+        let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success(cached)
+
+        let result = try await sut.fetchCountries(for: .africa)
+
+        #expect(spies.service.fetchCountriesCallsCount == 0)
+        #expect(result == cached)
+    }
+
+    @Test("fetchCountries when cache returns countries does not save to cache")
+    func fetchCountries_whenCacheHit_doesNotSaveToCache() async throws {
+        let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success([Country.fixture()])
 
         _ = try await sut.fetchCountries(for: .africa)
+
+        #expect(spies.cacheStore.saveCallsCount == 0)
+    }
+
+    // MARK: - Cache miss
+
+    @Test("fetchCountries when cache is empty calls service")
+    func fetchCountries_whenCacheMiss_callsService() async throws {
+        let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success([])
+        spies.service.fetchCountriesToBeReturned = .success([CountryDTO.fixture()])
+
         _ = try await sut.fetchCountries(for: .africa)
 
         #expect(spies.service.fetchCountriesCallsCount == 1)
     }
 
-    @Test("fetchCountries calls service for each distinct continent")
+    @Test("fetchCountries when cache is empty saves fetched countries to cache")
+    func fetchCountries_whenCacheMiss_savesCountriesToCache() async throws {
+        let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success([])
+        spies.service.fetchCountriesToBeReturned = .success([CountryDTO.fixture()])
+
+        _ = try await sut.fetchCountries(for: .africa)
+
+        #expect(spies.cacheStore.saveCallsCount == 1)
+        #expect(spies.cacheStore.saveReceivedContinents == [.africa])
+    }
+
+    @Test("fetchCountries when service fails does not save to cache")
+    func fetchCountries_whenServiceFails_doesNotSaveToCache() async throws {
+        let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success([])
+        spies.service.fetchCountriesToBeReturned = .failure(HTTPClientError.serverError(statusCode: 500))
+
+        _ = try? await sut.fetchCountries(for: .africa)
+
+        #expect(spies.cacheStore.saveCallsCount == 0)
+    }
+
+    @Test("fetchCountries calls service for each distinct continent on cache miss")
     func fetchCountries_differentContinents_callsServiceForEach() async throws {
         let (sut, spies) = makeSUT()
+        spies.cacheStore.fetchToBeReturned = .success([])
         spies.service.fetchCountriesToBeReturned = .success([CountryDTO.fixture()])
 
         _ = try await sut.fetchCountries(for: .africa)
         _ = try await sut.fetchCountries(for: .asia)
 
         #expect(spies.service.fetchCountriesCallsCount == 2)
-    }
-
-    @Test("fetchCountries propagates service error")
-    func fetchCountries_propagatesServiceError() async {
-        let (sut, spies) = makeSUT()
-        spies.service.fetchCountriesToBeReturned = .failure(HTTPClientError.serverError(statusCode: 500))
-
-        await #expect(throws: (any Error).self) {
-            _ = try await sut.fetchCountries(for: .oceania)
-        }
     }
 }
 
@@ -71,14 +124,21 @@ private extension CountrySearchRepositoryTests {
 
     struct Spies {
         let service: CountrySearchServiceSpy
+        let cacheStore: CountryCacheStoringSpy
     }
 
-    func makeSUT() -> (SUT, Spies) {
+    func makeSUT(cacheConfiguration: CacheConfiguration = .testing) -> (SUT, Spies) {
         let service = CountrySearchServiceSpy()
-        let sut = CountrySearchRepository(service: service)
+        let cacheStore = CountryCacheStoringSpy()
 
-        trackForMemoryLeaks([service, sut])
+        let sut = CountrySearchRepository(
+            service: service,
+            cacheStore: cacheStore,
+            cacheConfiguration: cacheConfiguration
+        )
 
-        return (sut, Spies(service: service))
+        trackForMemoryLeaks([service, cacheStore, sut])
+
+        return (sut, Spies(service: service, cacheStore: cacheStore))
     }
 }
