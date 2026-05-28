@@ -1,0 +1,45 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    name: Lint & Unit Tests
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.3.app
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          working-directory: world-peek-ios
+          bundler-cache: true
+
+      - name: Cache SPM packages
+        uses: actions/cache@v4
+        with:
+          path: world-peek-ios/world-peek-ios.xcodeproj/project.xcworkspace/xcshareddata/swiftpm
+          key: spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: spm-
+
+      - name: Run lint
+        working-directory: world-peek-ios
+        run: bundle exec fastlane lint
+
+      - name: Run unit tests
+        working-directory: world-peek-ios
+        run: bundle exec fastlane test
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: world-peek-ios/fastlane/test_output/

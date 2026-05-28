@@ -1,0 +1,89 @@
+opt_out_usage # Disable Fastlane anonymous analytics
+
+default_platform(:ios)
+
+platform :ios do
+
+  # ---------------------------------------------------------------------------
+  # lint — Run SwiftLint against all staged/tracked Swift files
+  # ---------------------------------------------------------------------------
+  desc "Run SwiftLint"
+  lane :lint do
+    swiftlint(
+      mode: :lint,
+      config_file: ".swiftlint.yml",
+      strict: true,
+      raise_if_swiftlint_error: true
+    )
+  end
+
+  # ---------------------------------------------------------------------------
+  # test — Build and run unit tests on the iOS Simulator
+  # UI tests are skipped in CI (slow and environment-sensitive)
+  # ---------------------------------------------------------------------------
+  desc "Run unit tests"
+  lane :test do
+    run_tests(
+      project: "world-peek-ios.xcodeproj",
+      scheme: "world-peek-ios",
+      destination: "platform=iOS Simulator,name=iPhone 16,OS=latest",
+      skip_testing: "world-peek-iosUITests",
+      output_directory: "fastlane/test_output",
+      result_bundle: true,
+      output_types: "html,junit",
+      clean: false
+    )
+  end
+
+  # ---------------------------------------------------------------------------
+  # beta — Build a signed .ipa and upload it to TestFlight
+  #
+  # Requires (set as GitHub secrets / local env vars):
+  #   ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_CONTENT  → App Store Connect API Key
+  #   MATCH_PASSWORD                               → Match encryption passphrase
+  #   MATCH_GIT_BASIC_AUTHORIZATION                → Base64(user:PAT) for certs repo
+  # ---------------------------------------------------------------------------
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    # Configure a temporary keychain when running on CI
+    setup_ci if ENV["CI"]
+
+    # Authenticate with App Store Connect via API Key (no 2FA needed)
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_content: ENV["ASC_KEY_CONTENT"],
+      is_key_content_base64: false
+    )
+
+    # Download certificates and provisioning profiles from the certs repo
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      api_key: api_key
+    )
+
+    # Use a timestamp-based build number to avoid conflicts (format: YYYYMMDDHHMM)
+    increment_build_number(
+      build_number: Time.now.strftime("%Y%m%d%H%M"),
+      xcodeproj: "world-peek-ios.xcodeproj"
+    )
+
+    # Compile and export a signed .ipa
+    gym(
+      scheme: "world-peek-ios",
+      project: "world-peek-ios.xcodeproj",
+      export_method: "app-store",
+      output_directory: "build",
+      clean: true
+    )
+
+    # Upload to TestFlight — skip waiting for Apple's processing (can take minutes)
+    pilot(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true,
+      distribute_external: false
+    )
+  end
+
+end
