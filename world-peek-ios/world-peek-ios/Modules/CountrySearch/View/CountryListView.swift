@@ -4,10 +4,17 @@ struct CountryListView: View {
     let countries: [Country]
     let onSelect: (Country) -> Void
 
-    private let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 12),
-        GridItem(.flexible())
-    ]
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    @State private var containerSize: CGSize = .zero
+
+    private var columns: [GridItem] {
+        AdaptiveGridLayout(
+            horizontalSizeClass: horizontalSizeClass,
+            verticalSizeClass: verticalSizeClass,
+            containerSize: containerSize
+        ).gridItems()
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -24,6 +31,13 @@ struct CountryListView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 20)
+            }
+        }
+        .background {
+            GeometryReader { geo in
+                Color.clear
+                    .onAppear { containerSize = geo.size }
+                    .onChange(of: geo.size) { containerSize = $0 }
             }
         }
         .accessibilityIdentifier(AccessibilityIdentifier.CountrySearch.countryList)
