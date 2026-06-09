@@ -29,6 +29,9 @@ jobs:
           key: spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: spm-
 
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
       - name: Run lint
         working-directory: world-peek-ios
         run: bundle exec fastlane lint
