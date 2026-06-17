@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 enum FlightSearchUIComposer {
-    static func make(
+    @MainActor static func make(
         deps: AppDependencies,
         url: URL
     ) -> (UIViewController, FlightSearchViewModel) {
