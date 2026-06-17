@@ -26,7 +26,7 @@ platform :ios do
     run_tests(
       project: "world-peek-ios.xcodeproj",
       scheme: "world-peek-ios",
-      destination: "platform=iOS Simulator,name=iPhone 16 Pro,OS=latest",
+      destination: "platform=iOS Simulator,name=iPhone 16 Pro",
       skip_testing: "world-peek-iosUITests",
       derived_data_path: "build/DerivedData",
       output_directory: "fastlane/test_output",
