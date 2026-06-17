@@ -15,9 +15,7 @@ jobs:
 
       - name: Select Xcode
         run: |
-          XCODE_PATH=$(ls -d /Applications/Xcode*.app | sort -V | tail -1)
-          echo "Selected Xcode: $XCODE_PATH"
-          sudo xcode-select -s "$XCODE_PATH"
+          sudo xcode-select -s /Applications/Xcode_16.3.app
           xcodebuild -version
           swift --version
 
