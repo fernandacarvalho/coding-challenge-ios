@@ -32,7 +32,8 @@ platform :ios do
       output_directory: "fastlane/test_output",
       result_bundle: true,
       output_types: "html,junit",
-      clean: false
+      clean: false,
+      xcargs: "-skipPackagePluginValidation"
     )
   end
 
