@@ -3,7 +3,7 @@ import Foundation
 @testable import world_peek_ios
 
 @Suite("CountryDTOToCountryDomainMapper")
-final class CountryDTOToCountryDomainMapperTests: Test.MoisesTesting {
+final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
 
     @Test("maps all fields from DTO to domain entity")
     func map_withFullDTO_mapsAllFieldsCorrectly() {

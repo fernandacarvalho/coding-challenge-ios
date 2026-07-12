@@ -2,7 +2,7 @@ import Testing
 @testable import world_peek_ios
 
 @Suite("CountrySearchRepository")
-final class CountrySearchRepositoryTests: Test.MoisesTesting {
+final class CountrySearchRepositoryTests: Test.WorldPeekTesting {
 
     // MARK: - Service delegation
 

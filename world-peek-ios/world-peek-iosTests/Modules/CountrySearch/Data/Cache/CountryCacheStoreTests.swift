@@ -3,7 +3,7 @@ import Foundation
 @testable import world_peek_ios
 
 @Suite("CountryCacheStore")
-final class CountryCacheStoreTests: Test.MoisesTesting {
+final class CountryCacheStoreTests: Test.WorldPeekTesting {
 
     @Test("fetch when no file exists returns empty array")
     func fetch_whenNoFile_returnsEmpty() async throws {

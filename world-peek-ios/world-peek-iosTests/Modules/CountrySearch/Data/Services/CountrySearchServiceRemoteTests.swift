@@ -3,7 +3,7 @@ import Foundation
 @testable import world_peek_ios
 
 @Suite("CountrySearchServiceRemote")
-final class CountrySearchServiceRemoteTests: Test.MoisesTesting {
+final class CountrySearchServiceRemoteTests: Test.WorldPeekTesting {
 
     @Test(
         "fetchCountries builds correct URL with region and fields",
