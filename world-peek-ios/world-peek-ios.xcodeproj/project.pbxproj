@@ -28,6 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2BB33FE52F4D906E6C44DB5E /* Secrets.example.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Secrets.example.xcconfig; sourceTree = "<group>"; };
+		3A084DDF0670457A44229B5A /* Info-Additions.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Info-Additions.plist"; sourceTree = "<group>"; };
+		512CA5835F92DDA4786CC2B8 /* Secrets.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91B49043ED6EB40C850717B3 /* Config.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		F6A46FB92F9EB7C800680B47 /* world-peek-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "world-peek-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A46FC62F9EB7CE00680B47 /* world-peek-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "world-peek-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6A46FD02F9EB7CE00680B47 /* world-peek-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "world-peek-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,16 +40,22 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F6A46FBB2F9EB7C800680B47 /* world-peek-ios */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = "world-peek-ios";
 			sourceTree = "<group>";
 		};
 		F6A46FC92F9EB7CE00680B47 /* world-peek-iosTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = "world-peek-iosTests";
 			sourceTree = "<group>";
 		};
 		F6A46FD32F9EB7CE00680B47 /* world-peek-iosUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = "world-peek-iosUITests";
 			sourceTree = "<group>";
 		};
@@ -77,6 +87,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0EBD44886C81D78C380CB5CC /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				91B49043ED6EB40C850717B3 /* Config.xcconfig */,
+				2BB33FE52F4D906E6C44DB5E /* Secrets.example.xcconfig */,
+				512CA5835F92DDA4786CC2B8 /* Secrets.xcconfig */,
+				3A084DDF0670457A44229B5A /* Info-Additions.plist */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
 		F6A46FB02F9EB7C800680B47 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +106,7 @@
 				F6A46FD32F9EB7CE00680B47 /* world-peek-iosUITests */,
 				F6A4D4DB2FA191C200680B47 /* Frameworks */,
 				F6A46FBA2F9EB7C800680B47 /* Products */,
+				0EBD44886C81D78C380CB5CC /* Configuration */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,8 +171,6 @@
 				F6A46FC92F9EB7CE00680B47 /* world-peek-iosTests */,
 			);
 			name = "world-peek-iosTests";
-			packageProductDependencies = (
-			);
 			productName = "world-peek-iosTests";
 			productReference = F6A46FC62F9EB7CE00680B47 /* world-peek-iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -172,8 +192,6 @@
 				F6A46FD32F9EB7CE00680B47 /* world-peek-iosUITests */,
 			);
 			name = "world-peek-iosUITests";
-			packageProductDependencies = (
-			);
 			productName = "world-peek-iosUITests";
 			productReference = F6A46FD02F9EB7CE00680B47 /* world-peek-iosUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -288,7 +306,7 @@
 		};
 		F6A4D4E32FA27F9B00680B47 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = F6A4D4E22FA27F9B00680B47 /* SwiftLintBuildToolPlugin */;
+			productRef = F6A4D4E22FA27F9B00680B47 /* plugin:SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -411,6 +429,7 @@
 		};
 		F6A46FDB2F9EB7CE00680B47 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91B49043ED6EB40C850717B3 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -422,7 +441,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Info-Additions.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "World Peek";
+				INFOPLIST_KEY_RestCountriesAPIKey = "$(REST_COUNTRIES_API_KEY)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -454,6 +475,7 @@
 		};
 		F6A46FDC2F9EB7CE00680B47 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91B49043ED6EB40C850717B3 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -465,7 +487,9 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Info-Additions.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "World Peek";
+				INFOPLIST_KEY_RestCountriesAPIKey = "$(REST_COUNTRIES_API_KEY)";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -646,7 +670,7 @@
 			package = F6A4D4DA2FA1910900680B47 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		F6A4D4E22FA27F9B00680B47 /* SwiftLintBuildToolPlugin */ = {
+		F6A4D4E22FA27F9B00680B47 /* plugin:SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F6A4D4E12FA27F8D00680B47 /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";

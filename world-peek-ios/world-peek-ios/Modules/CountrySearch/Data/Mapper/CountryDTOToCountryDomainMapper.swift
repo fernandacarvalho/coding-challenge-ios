@@ -9,28 +9,24 @@ import Foundation
 
 struct CountryDTOToCountryDomainMapper {
     static func map(dto: CountryDTO) -> Country? {
-        guard let flagURL = URL(string: dto.flags.png) else { return nil }
+        guard let flagURL = dto.flag.urlPng.flatMap({ URL(string: $0) }) else { return nil }
 
-        let mappedCurrencies = dto.currencies?.values.map { Currency(name: $0.name, symbol: $0.symbol) } ?? []
+        let mappedCurrencies = dto.currencies?.map { Currency(name: $0.name ?? "", symbol: $0.symbol ?? "") } ?? []
 
         return Country(
-            id: dto.name.common,
-            name: dto.name.common,
-            officialName: dto.name.official,
+            id: dto.names.common,
+            name: dto.names.common,
+            officialName: dto.names.official,
             flagURL: flagURL,
-            flagSVGURL: URL(string: dto.flags.svg),
+            flagSVGURL: dto.flag.urlSvg.flatMap { URL(string: $0) },
             region: dto.region,
             subregion: dto.subregion,
             currencies: mappedCurrencies,
             population: dto.population,
-            capital: dto.capital ?? [],
-            mapsURL: dto.maps.flatMap { URL(string: $0.googleMaps) },
-            latLong: dto.latlng.flatMap {
-                $0.count >= 2
-                    ? LatLong(lat: $0[0], long: $0[1])
-                    : nil
-            },
-            languages: dto.languages.map { Array($0.values) } ?? []
+            capital: dto.capitals?.map { $0.name } ?? [],
+            mapsURL: dto.links?.googleMaps.flatMap { URL(string: $0) },
+            latLong: dto.coordinates.map { LatLong(lat: $0.lat, long: $0.lng) },
+            languages: dto.languages?.map { $0.name } ?? []
         )
     }
 }

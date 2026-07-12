@@ -8,20 +8,20 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
     @Test("maps all fields from DTO to domain entity")
     func map_withFullDTO_mapsAllFieldsCorrectly() {
         let dto = CountryDTO.fixture(
-            name: .init(common: "Germany", official: "Federal Republic of Germany"),
-            flags: .init(png: "https://flagcdn.com/w320/de.png", svg: "https://flagcdn.com/de.svg"),
-            currencies: ["EUR": .init(name: "Euro", symbol: "€")],
+            names: .init(common: "Germany", official: "Federal Republic of Germany"),
+            flag: .init(urlPng: "https://flagcdn.com/w320/de.png", urlSvg: "https://flagcdn.com/de.svg"),
+            currencies: [.init(name: "Euro", symbol: "€")],
             region: "Europe",
             subregion: "Western Europe",
             population: 83_000_000,
-            capital: ["Berlin"],
-            maps: .init(googleMaps: "https://goo.gl/maps/germany"),
-            latlng: [-30.0, -71.0],
-            languages: ["deu": "German"]
+            capitals: [.init(name: "Berlin")],
+            links: .init(googleMaps: "https://goo.gl/maps/germany"),
+            coordinates: .init(lat: -30.0, lng: -71.0),
+            languages: [.init(name: "German")]
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
-        
+
         let expectedLatLong = LatLong(lat: -30.0, long: -71.0)
         #expect(country?.id == "Germany")
         #expect(country?.name == "Germany")
@@ -38,10 +38,10 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
         #expect(country?.languages == ["German"])
     }
 
-    @Test("uses name.common as both id and name")
+    @Test("uses names.common as both id and name")
     func map_usesCommonNameAsIdAndName() {
         let dto = CountryDTO.fixture(
-            name: .init(common: "Brazil", official: "Federative Republic of Brazil")
+            names: .init(common: "Brazil", official: "Federative Republic of Brazil")
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
@@ -54,7 +54,18 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
     @Test("returns nil when flag PNG URL string is invalid")
     func map_withInvalidFlagPNGURL_returnsNil() {
         let dto = CountryDTO.fixture(
-            flags: .init(png: "", svg: "https://flagcdn.com/br.svg")
+            flag: .init(urlPng: "", urlSvg: "https://flagcdn.com/br.svg")
+        )
+
+        let country = CountryDTOToCountryDomainMapper.map(dto: dto)
+
+        #expect(country == nil)
+    }
+
+    @Test("returns nil when flag PNG URL is missing")
+    func map_withNilFlagPNGURL_returnsNil() {
+        let dto = CountryDTO.fixture(
+            flag: .init(urlPng: nil, urlSvg: "https://flagcdn.com/br.svg")
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
@@ -65,7 +76,7 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
     @Test("maps invalid flag SVG URL string to nil flagSVGURL")
     func map_withInvalidFlagSVGURL_mapsFlagSVGURLToNil() {
         let dto = CountryDTO.fixture(
-            flags: .init(png: "https://flagcdn.com/w320/br.png", svg: "")
+            flag: .init(urlPng: "https://flagcdn.com/w320/br.png", urlSvg: "")
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
@@ -87,8 +98,8 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
     func map_withMultipleCurrencies_mapsAllCurrencies() {
         let dto = CountryDTO.fixture(
             currencies: [
-                "BRL": .init(name: "Brazilian real", symbol: "R$"),
-                "USD": .init(name: "United States dollar", symbol: "$")
+                .init(name: "Brazilian real", symbol: "R$"),
+                .init(name: "United States dollar", symbol: "$")
             ]
         )
 
@@ -106,18 +117,18 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
         #expect(country?.subregion == nil)
     }
 
-    @Test("maps nil capital to empty array")
-    func map_withNilCapital_mapsToEmptyCapitalArray() {
-        let dto = CountryDTO.fixture(capital: nil)
+    @Test("maps nil capitals to empty array")
+    func map_withNilCapitals_mapsToEmptyCapitalArray() {
+        let dto = CountryDTO.fixture(capitals: nil)
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
 
         #expect(country?.capital == [])
     }
 
-    @Test("maps nil maps to nil mapsURL")
-    func map_withNilMaps_mapsMapsURLToNil() {
-        let dto = CountryDTO.fixture(maps: nil)
+    @Test("maps nil links to nil mapsURL")
+    func map_withNilLinks_mapsMapsURLToNil() {
+        let dto = CountryDTO.fixture(links: nil)
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
 
@@ -126,16 +137,16 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
 
     @Test("maps invalid googleMaps URL string to nil mapsURL")
     func map_withInvalidGoogleMapsURL_mapsMapsURLToNil() {
-        let dto = CountryDTO.fixture(maps: .init(googleMaps: ""))
+        let dto = CountryDTO.fixture(links: .init(googleMaps: ""))
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
 
         #expect(country?.mapsURL == nil)
     }
 
-    @Test("maps nil tld to empty array")
-    func map_withNilLatlng_mapsToNilLatLong() {
-        let dto = CountryDTO.fixture(latlng: nil)
+    @Test("maps nil coordinates to nil latLong")
+    func map_withNilCoordinates_mapsToNilLatLong() {
+        let dto = CountryDTO.fixture(coordinates: nil)
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)
 
@@ -154,7 +165,7 @@ final class CountryDTOToCountryDomainMapperTests: Test.WorldPeekTesting {
     @Test("maps multiple languages preserving all values")
     func map_withMultipleLanguages_mapsAllLanguageValues() {
         let dto = CountryDTO.fixture(
-            languages: ["por": "Portuguese", "eng": "English"]
+            languages: [.init(name: "Portuguese"), .init(name: "English")]
         )
 
         let country = CountryDTOToCountryDomainMapper.map(dto: dto)

@@ -1,0 +1,6 @@
+// Committed base configuration for the app target.
+// Provides a safe placeholder for REST_COUNTRIES_API_KEY so the project
+// builds out of the box on a fresh checkout, then optionally pulls in the
+// real value from Secrets.xcconfig (gitignored, not committed) if present.
+REST_COUNTRIES_API_KEY = REPLACE_WITH_YOUR_KEY
+#include? "Secrets.xcconfig"

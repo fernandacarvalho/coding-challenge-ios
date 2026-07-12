@@ -8,7 +8,10 @@ struct AppDependencies {
 extension AppDependencies {
     static func live() -> AppDependencies {
         AppDependencies(
-            httpClient: URLSessionHTTPClient(session: .shared),
+            httpClient: AuthenticatedHTTPClient(
+                wrapping: URLSessionHTTPClient(session: .shared),
+                apiKey: AppSecrets.restCountriesAPIKey
+            ),
             cacheConfiguration: .default
         )
     }

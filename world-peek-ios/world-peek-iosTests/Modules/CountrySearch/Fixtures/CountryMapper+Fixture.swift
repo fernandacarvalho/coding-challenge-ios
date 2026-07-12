@@ -3,27 +3,27 @@ import Foundation
 
 extension CountryDTO {
     static func fixture(
-        name: Name = Name(common: "Brazil", official: "Federative Republic of Brazil"),
-        flags: Flags = Flags(png: "https://flagcdn.com/w320/br.png", svg: "https://flagcdn.com/br.svg"),
-        currencies: [String: CurrencyInfo]? = ["BRL": CurrencyInfo(name: "Brazilian real", symbol: "R$")],
+        names: Names = Names(common: "Brazil", official: "Federative Republic of Brazil"),
+        flag: Flag = Flag(urlPng: "https://flagcdn.com/w320/br.png", urlSvg: "https://flagcdn.com/br.svg"),
+        currencies: [CurrencyInfo]? = [CurrencyInfo(name: "Brazilian real", symbol: "R$")],
         region: String = "Americas",
         subregion: String? = "South America",
         population: Int = 214_326_000,
-        capital: [String]? = ["Brasília"],
-        maps: Maps? = nil,
-        latlng: [Double]? = nil,
-        languages: [String: String]? = ["por": "Portuguese"]
+        capitals: [Capital]? = [Capital(name: "Brasília")],
+        links: Links? = nil,
+        coordinates: Coordinates? = nil,
+        languages: [Language]? = [Language(name: "Portuguese")]
     ) -> CountryDTO {
         CountryDTO(
-            name: name,
-            flags: flags,
+            names: names,
+            flag: flag,
             currencies: currencies,
             region: region,
             subregion: subregion,
             population: population,
-            capital: capital,
-            maps: maps,
-            latlng: latlng,
+            capitals: capitals,
+            links: links,
+            coordinates: coordinates,
             languages: languages
         )
     }
