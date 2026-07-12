@@ -38,6 +38,10 @@ jobs:
           key: spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: spm-
 
+      - name: Write REST Countries API key
+        working-directory: world-peek-ios
+        run: echo "REST_COUNTRIES_API_KEY = ${{ secrets.REST_COUNTRIES_API_KEY }}" > Secrets.xcconfig
+
       - name: Build & Deploy
         working-directory: world-peek-ios
         env:

@@ -64,3 +64,7 @@ fastlane/test_output
 # Fastlane build artifacts and local bundler config
 build/
 .bundle/
+
+# Local secrets (API keys) — copy world-peek-ios/Secrets.example.xcconfig to
+# world-peek-ios/Secrets.xcconfig and fill in real values, never commit it.
+world-peek-ios/Secrets.xcconfig

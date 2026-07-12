@@ -28,7 +28,7 @@ final class CountrySearchRepositoryTests: Test.WorldPeekTesting {
         let result = try await sut.fetchCountries(for: .americas)
 
         #expect(result.count == 1)
-        #expect(result[0].name == dto.name.common)
+        #expect(result[0].name == dto.names.common)
         #expect(result[0].region == dto.region)
     }
 
