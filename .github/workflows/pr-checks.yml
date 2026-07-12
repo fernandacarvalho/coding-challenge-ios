@@ -7,7 +7,7 @@ on:
 jobs:
   lint-and-test:
     name: Lint & Unit Tests
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
@@ -15,7 +15,8 @@ jobs:
 
       - name: Select Xcode
         run: |
-          XCODE_PATH=$(ls -d /Applications/Xcode_16*.app 2>/dev/null | sort -V | tail -1)
+          XCODE_PATH=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          XCODE_PATH="${XCODE_PATH:-/Applications/Xcode.app}"
           echo "Selected Xcode: $XCODE_PATH"
           sudo xcode-select -s "$XCODE_PATH"
           xcodebuild -version
