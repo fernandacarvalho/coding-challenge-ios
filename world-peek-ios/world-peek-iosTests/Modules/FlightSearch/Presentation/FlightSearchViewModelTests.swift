@@ -4,7 +4,7 @@ import Testing
 
 @Suite("FlightSearchViewModel")
 @MainActor
-final class FlightSearchViewModelTests: Test.MoisesTesting {
+final class FlightSearchViewModelTests: Test.WorldPeekTesting {
 
     @Test("init stores the provided URL")
     func init_storesURL() {

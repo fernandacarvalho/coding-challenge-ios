@@ -7,14 +7,20 @@ on:
 jobs:
   lint-and-test:
     name: Lint & Unit Tests
-    runs-on: macos-15
+    runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode_16.3.app
+        run: |
+          XCODE_PATH=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          XCODE_PATH="${XCODE_PATH:-/Applications/Xcode.app}"
+          echo "Selected Xcode: $XCODE_PATH"
+          sudo xcode-select -s "$XCODE_PATH"
+          xcodebuild -version
+          swift --version
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -28,6 +34,9 @@ jobs:
           path: world-peek-ios/world-peek-ios.xcodeproj/project.xcworkspace/xcshareddata/swiftpm
           key: spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: spm-
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
 
       - name: Run lint
         working-directory: world-peek-ios

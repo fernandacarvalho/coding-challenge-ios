@@ -1,5 +1,5 @@
 //
-//  Test+MoisesTesting.swift
+//  Test+WorldPeekTesting.swift
 //  world-peek-iosTests
 //
 //  Created by Fernanda Carvalho on 28/04/26.
@@ -9,7 +9,7 @@ import Testing
 import Foundation
 
 extension Test {
-    class MoisesTesting {
+    class WorldPeekTesting {
 
         private struct LeakTracker {
             let objectType: String
@@ -45,7 +45,7 @@ extension Test {
             for tracker in leakTrackers {
                 if tracker.ref() != nil {
                     Issue.record(
-                        "Memory leak detectado: \(tracker.objectType) não foi desalocado.",
+                        "Memory leak detected: \(tracker.objectType) was not deallocated.",
                         sourceLocation: tracker.sourceLocation
                     )
                 }

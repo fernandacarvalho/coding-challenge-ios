@@ -3,7 +3,7 @@ import Testing
 
 @Suite("CountrySearchViewModel")
 @MainActor
-final class CountrySearchViewModelTests: Test.MoisesTesting {
+final class CountrySearchViewModelTests: Test.WorldPeekTesting {
 
     @Test("on init, fetches countries for the first continent")
     func init_fetchesCountriesForInitialContinent() async {

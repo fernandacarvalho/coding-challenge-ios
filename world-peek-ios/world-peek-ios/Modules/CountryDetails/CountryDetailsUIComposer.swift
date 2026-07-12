@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 enum CountryDetailsUIComposer {
-    static func make(
+    @MainActor static func make(
         deps: AppDependencies,
         country: Country
     ) -> (UIViewController, CountryDetailsViewModel) {

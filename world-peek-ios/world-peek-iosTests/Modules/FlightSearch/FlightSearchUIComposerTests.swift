@@ -3,7 +3,7 @@ import UIKit
 @testable import world_peek_ios
 
 @Suite("FlightSearchUIComposer")
-final class FlightSearchUIComposerTests: Test.MoisesTesting {
+final class FlightSearchUIComposerTests: Test.WorldPeekTesting {
 
     @Test("make() does not leak memory")
     @MainActor

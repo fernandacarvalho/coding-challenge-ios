@@ -3,7 +3,7 @@ import Testing
 
 @Suite("CountrySearchUIComposer")
 @MainActor
-final class CountrySearchUIComposerTests: Test.MoisesTesting {
+final class CountrySearchUIComposerTests: Test.WorldPeekTesting {
 
     @Test("make() does not leak memory")
     func make_doesNotLeak() {

@@ -26,13 +26,50 @@ platform :ios do
     run_tests(
       project: "world-peek-ios.xcodeproj",
       scheme: "world-peek-ios",
-      destination: "platform=iOS Simulator,name=iPhone 16,OS=latest",
+      destination: simulator_destination,
       skip_testing: "world-peek-iosUITests",
+      derived_data_path: "build/DerivedData",
       output_directory: "fastlane/test_output",
       result_bundle: true,
       output_types: "html,junit",
-      clean: false
+      clean: false,
+      xcargs: "-skipPackagePluginValidation"
     )
+  end
+
+  # ---------------------------------------------------------------------------
+  # simulator_destination — Resolve the test destination at runtime
+  #
+  # Prefers "iPhone 17 Pro" on the highest available iOS 26 runtime; falls back
+  # to any iPhone on that runtime, so the lane survives runner image updates
+  # that rename/remove simulator devices.
+  # ---------------------------------------------------------------------------
+  PREFERRED_SIMULATOR = "iPhone 17 Pro"
+
+  def simulator_destination
+    require "json"
+
+    devices_by_runtime = JSON.parse(`xcrun simctl list devices available --json`)["devices"]
+
+    ios26_runtimes = devices_by_runtime.keys
+      .select { |key| key[/SimRuntime\.iOS-26(-|$)/] }
+      .sort_by { |key| key.split("iOS-").last.split("-").map(&:to_i) }
+      .reverse
+
+    ios26_runtimes.each do |runtime|
+      iphones = devices_by_runtime[runtime]
+        .map { |device| device["name"] }
+        .select { |name| name.start_with?("iPhone") }
+      next if iphones.empty?
+
+      name = iphones.include?(PREFERRED_SIMULATOR) ? PREFERRED_SIMULATOR : iphones.max
+      os_version = runtime.split("iOS-").last.tr("-", ".")
+      UI.message("Test destination: #{name} (iOS #{os_version})")
+      return "platform=iOS Simulator,name=#{name},OS=#{os_version}"
+    end
+
+    UI.important("No iOS 26 iPhone simulator found — letting xcodebuild pick the OS for #{PREFERRED_SIMULATOR}")
+    "platform=iOS Simulator,name=#{PREFERRED_SIMULATOR}"
   end
 
   # ---------------------------------------------------------------------------

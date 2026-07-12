@@ -11,7 +11,7 @@ import Testing
 
 @Suite("CountryDetailsViewModel")
 @MainActor
-final class CountryDetailsViewModelTests: Test.MoisesTesting {
+final class CountryDetailsViewModelTests: Test.WorldPeekTesting {
     @Test("toggleCard updates isExpanded property")
     func toggleCard_updateIsExpanded() async {
         let (sut, _) = makeSUT(country: Country.fixture())

@@ -3,7 +3,7 @@ import UIKit
 @testable import world_peek_ios
 
 @Suite("CountryDetailsUIComposer")
-final class CountryDetailsUIComposerTests: Test.MoisesTesting {
+final class CountryDetailsUIComposerTests: Test.WorldPeekTesting {
 
     @Test("make() does not leak memory")
     @MainActor
