@@ -101,3 +101,12 @@ world-peek-ios/
     └── Shared/
         └── Testing/                # LeakTrackingTestSuite, shared Spies/Fixtures
 ```
+
+<img width="1512" height="665" alt="Captura de Tela 2026-07-12 às 21 11 41" src="https://github.com/user-attachments/assets/3f98b72e-9947-44f7-aa81-152e5635daaa" />
+
+<img width="1421" height="620" alt="Captura de Tela 2026-07-12 às 21 16 08" src="https://github.com/user-attachments/assets/7aeb0a38-c3af-492c-8bf8-c47bd503093b" />
+
+
+
+
+
